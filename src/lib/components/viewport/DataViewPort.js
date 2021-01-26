@@ -46,6 +46,8 @@ export class DataViewPort extends Component {
       result.push(
         <DataRow key={i} label={item.name} top={i * this.props.itemheight} left={20} itemheight={this.props.itemheight}>
           <DataTask
+            setStickyRow={this.props.setStickyRow}
+            stickyRow={this.props.stickyRow}
             item={item}
             label={item.name}
             nowposition={this.props.nowposition}

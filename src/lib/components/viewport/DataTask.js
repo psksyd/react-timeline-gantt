@@ -8,7 +8,7 @@ export default class DataTask extends Component {
   constructor(props) {
     super(props);
     this.calculateStyle = this.calculateStyle.bind(this);
-    this.state = { dragging: false, left: this.props.left, width: this.props.width, mode: MODE_NONE };
+    this.state = { dragging: false, left: this.props.left, width: this.props.width, mode: MODE_NONE, showHover: false };
   }
 
   onCreateLinkMouseDown = (e, position) => {
@@ -51,7 +51,7 @@ export default class DataTask extends Component {
       dragging: true,
       mode: mode,
       left: this.props.left,
-      width: this.props.width
+      width: this.props.width,
     });
   }
   dragProcess(x) {
@@ -74,7 +74,7 @@ export default class DataTask extends Component {
     //the coordinates need to be global
     let changeObj = {
       item: this.props.item,
-      position: { start: newLeft - this.props.nowposition, end: newLeft + newWidth - this.props.nowposition }
+      position: { start: newLeft - this.props.nowposition, end: newLeft + newWidth - this.props.nowposition },
     };
     this.props.onTaskChanging(changeObj);
     this.setState({ left: newLeft, width: newWidth });
@@ -134,23 +134,84 @@ export default class DataTask extends Component {
         left: this.state.left,
         width: this.state.width,
         height: this.props.height - 5,
-        top: 2
+        top: 2,
       };
     } else {
       return { ...configStyle, backgroundColor, left: this.props.left, width: this.props.width, height: this.props.height - 5, top: 2 };
     }
   }
+  displayTooltip = () => {
+    if (!document.getElementById(this.props.item._id)) {
+      return null;
+    }
+
+    return (
+      <div
+        style={{
+          width: '300px',
+          border: '1px solid gray',
+          backgroundColor: '#FFFFFF',
+          color: '#676767',
+          textAlign: 'center',
+          borderRadius: '6px',
+          padding: '10px',
+          position: 'absolute',
+          zIndex: 9999,
+          bottom: '-100px',
+          left: '105%',
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px 5px 10px' }}>
+            <span>Namn : </span>
+            <span>{this.props.item.name}</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px 5px 10px' }}>
+            <span>Start-Slut: </span>
+            <span>
+              {`${new Date(this.props.item.start).toLocaleDateString('en-ca')} - ${new Date(this.props.item.end).toLocaleDateString(
+                'en-ca'
+              )}`}
+            </span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px 5px 10px' }}>
+            <span>Fas :</span>
+            <span>{this.props.item.phase}</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px 5px 10px' }}>
+            <span>Personer :</span>
+            <span>
+              {this.props.item._readers &&
+                Object.values(this.props.item._readers).map((r) => (
+                  <>
+                    <span>{r.name}</span>
+                    <br />
+                  </>
+                ))}
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  };
   render() {
     let style = this.calculateStyle();
     return (
       <div
-        onMouseDown={(e) => this.doMouseDown(e, MODE_MOVE)}
+        id={this.props.item._id}
+        onMouseEnter={() => this.setState({ showHover: true })}
+        onMouseLeave={() => this.setState({ showHover: false })}
+        onMouseDown={(e) => {
+          this.props.setStickyRow(this.props.item._id);
+          return this.doMouseDown(e, MODE_MOVE);
+        }}
         onTouchStart={(e) => this.doTouchStart(e, MODE_MOVE)}
         onClick={(e) => {
           this.props.onSelectItem(this.props.item);
         }}
         style={style}
       >
+        {(this.state.showHover || this.props.stickyRow == this.props.item._id) && this.displayTooltip()}
         <div
           className="timeLine-main-data-task-side"
           style={{ top: 0, left: -4, height: style.height }}

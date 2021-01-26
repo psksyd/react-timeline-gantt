@@ -41,6 +41,7 @@ class TimeLine extends Component {
       numVisibleRows: 40,
       numVisibleDays: 60,
       dayWidth: dayWidth,
+      stickyRow:null,
       interactiveMode: false,
       taskToCreate: null,
       links: [],
@@ -302,6 +303,12 @@ class TimeLine extends Component {
       this.state.scrollLeft = scrollLeft;
     }
   }
+  setStickyRow = (id) => {
+    this.setState({
+      stickyRow: this.state.stickyRow == id ? null : id,
+    });
+  };
+
   checkNeeeData = () => {
     if (this.props.data != this.state.data) {
       this.state.data = this.props.data;
@@ -361,6 +368,8 @@ class TimeLine extends Component {
             selectedItem={this.props.selectedItem}
             dayWidth={this.state.dayWidth}
             onScroll={this.scrollData}
+            stickyRow={this.state.stickyRow}
+            setStickyRow={this.setStickyRow}
             onMouseDown={this.doMouseDown}
             onMouseMove={this.doMouseMove}
             onMouseUp={this.doMouseUp}
