@@ -196,6 +196,9 @@ export default class DataTask extends Component {
   };
   render() {
     let style = this.calculateStyle();
+    if (this.props.item._id === this.props.stickyRow) {
+      style.border = '2px solid darkblue';
+    }
     return (
       <div
         id={this.props.item._id}
