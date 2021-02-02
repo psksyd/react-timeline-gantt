@@ -1,5 +1,5 @@
 {
-  "name": "react-gantt-timeline",
+  "name": "@vikMalmberg/react-gantt-timeline",
   "version": "0.4.3",
   "description": "",
   "main": "dist/index.js",
@@ -12,6 +12,13 @@
     "test": "jest && codecov",
     "prepublish": "rm -rf ./dist && npm run build",
     "postinstall": "opencollective-postinstall"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikMalmberg/react-timeline-gantt.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "peerDependencies": {
     "css-layout": "^1.1.1",
@@ -61,7 +68,7 @@
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.11"
   },
-  "author": "Guillermo  Quiros",
+  "author": "Viktor Malmberg",
   "license": "MIT",
   "keywords": [
     "react",
