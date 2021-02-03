@@ -21,7 +21,7 @@ export class HeaderItem extends PureComponent {
           position: 'absolute',
           height: 20,
           left: this.props.left,
-          width: this.props.width
+          width: this.props.width,
         }}
       >
         <div>{this.props.label}</div>
@@ -125,7 +125,7 @@ export default class Header extends PureComponent {
 
     for (let i = start - BUFFER_DAYS; i < end + BUFFER_DAYS; i++) {
       //The unit of iteration is day
-      currentDate = moment().add(i, 'days');
+      currentDate = moment().locale('sv').add(i, 'days');
       if (currentTop != currentDate.format(this.getFormat(top, 'top'))) {
         currentTop = currentDate.format(this.getFormat(top, 'top'));
         box = this.getBox(currentDate, top, lastLeft.top);
