@@ -1,5 +1,5 @@
 {
-  "name": "@vikmalmberg/react-gantt-timeline",
+  "name": "@psksyd/react-gantt-timeline",
   "version": "0.4.6",
   "description": "",
   "main": "dist/index.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vikMalmberg/react-timeline-gantt.git"
+    "url": "git+https://github.com/psksyd/react-timeline-gantt.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
