@@ -164,7 +164,7 @@ export default class DataTask extends Component {
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px 5px 10px' }}>
             <span>Namn : </span>
-            <span>{this.props.item.name}</span>
+            <span>{this.props.item.displayName}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px 5px 10px' }}>
             <span>Start-Slut: </span>
