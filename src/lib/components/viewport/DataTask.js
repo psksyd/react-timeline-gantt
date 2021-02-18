@@ -180,14 +180,9 @@ export default class DataTask extends Component {
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px 5px 10px' }}>
             <span>Personer :</span>
-            <span>
+            <span style={{ display: 'flex', flexFlow: 'column' }}>
               {this.props.item._readers &&
-                Object.values(this.props.item._readers).map((r) => (
-                  <>
-                    <span>{r.name}</span>
-                    <br />
-                  </>
-                ))}
+                Object.values(this.props.item._readers).map((r) => <span style={{ textAlign: 'end' }}>{r.name}</span>)}
             </span>
           </div>
         </div>
