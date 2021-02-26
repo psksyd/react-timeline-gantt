@@ -33,7 +33,7 @@ class Generator {
     let endDate = new Date(starDate.getTime());
     endDate.setDate(starDate.getDate() + Math.random() * 20);
     let id = ObjectHelper.genID();
-    let record = { id: id, name: `Task ${i}`, start: starDate, end: endDate, color: this.getRandomColor() };
+    let record = { id: id, name: `Task ${i}`, start: starDate, end: endDate, color: this.getRandomColor(),linkInfo:{link:"https://www.google.com/",target:`doc_${i}`, openWindowFeatures:"width=600,height=800"} };
     result.push(record);
     return id;
   }
