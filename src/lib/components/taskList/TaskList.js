@@ -39,7 +39,7 @@ export class TaskRow extends Component {
             {this.props.label}
           </div>
         ) : (
-          <ContentEditable value={this.props.label} index={this.props.index} onChange={this.onChange} />
+          <ContentEditable linkInfo={this.props.item.linkInfo} value={this.props.label} index={this.props.index} onChange={this.onChange} />
         )}
       </div>
     );

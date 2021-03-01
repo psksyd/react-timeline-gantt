@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 export default class ContentEditable extends Component {
   constructor(props) {
     super(props);
@@ -42,11 +43,17 @@ export default class ContentEditable extends Component {
   };
 
   renderDiv = () => {
+    const { link, target, openWindowFeatures } = this.props.linkInfo || {};
     return (
-      <div tabIndex={this.props.index} onClick={this.onFocus} onFocus={this.onFocus} style={{ width: '100%' }}>
-        {' '}
-        {this.state.value}
-      </div>
+      this.props.linkInfo ?
+        <a style={{ width: '100%', color: '#1890ff' }} target={link}
+           onClick={() => window.open(link, target, openWindowFeatures)}>
+          {this.props.value}
+        </a> :
+        <div tabIndex={this.props.index} onClick={this.onFocus} onFocus={this.onFocus} style={{ width: '100%' }}>
+          {' '}
+          {this.state.value}
+        </div>
     );
   };
 
