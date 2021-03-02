@@ -127,6 +127,12 @@ export default class DataTask extends Component {
     let configStyle = this.props.isSelected ? Config.values.dataViewPort.task.selectedStyle : Config.values.dataViewPort.task.style;
     let backgroundColor = this.props.color ? this.props.color : configStyle.backgroundColor;
 
+    const sideColor = "#1890ff";
+    const centerColor = "#52c41a";
+    const backgroundGradient = `linear-gradient(to right, ${sideColor} 0%, ${sideColor} 
+    ${this.props.activeStartPercent}%, ${centerColor} ${this.props.activeStartPercent}%, ${centerColor} 
+    ${this.props.activeEndPercent}%, ${sideColor} ${this.props.activeEndPercent}%, ${sideColor} 100%)`
+
     if (this.state.dragging) {
       return {
         ...configStyle,
@@ -137,7 +143,7 @@ export default class DataTask extends Component {
         top: 2,
       };
     } else {
-      return { ...configStyle, backgroundColor, left: this.props.left, width: this.props.width, height: this.props.height - 5, top: 2 };
+      return { ...configStyle, background: backgroundGradient, left: this.props.left, width: this.props.width, height: this.props.height - 5, top: 2 };
     }
   }
   displayTooltip = () => {
