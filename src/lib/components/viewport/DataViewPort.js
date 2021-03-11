@@ -44,14 +44,12 @@ export class DataViewPort extends Component {
       let new_position = DateHelper.dateToPixel(item.start, this.props.nowposition, this.props.dayWidth);
       let new_width = DateHelper.dateToPixel(item.end, this.props.nowposition, this.props.dayWidth) - new_position;
 
-      const activeStartPercent =  item.activeStart  ? Math.round( ((item.activeStart - item.start)  / (item.end -item.start) )*100) : 100;
-      const activeEndPercent =  item.activeEnd ? Math.round( ((item.activeEnd - item.start)  / (item.end -item.start) )*100) : 100;
+      const activeStartPercent = item.activeStart ? Math.round(((item.activeStart - item.start) / (item.end - item.start)) * 100) : 100;
+      const activeEndPercent = item.activeEnd ? Math.round(((item.activeEnd - item.start) / (item.end - item.start)) * 100) : 100;
 
       result.push(
         <DataRow key={i} label={item.name} top={i * this.props.itemheight} left={20} itemheight={this.props.itemheight}>
           <DataTask
-            setStickyRow={this.props.setStickyRow}
-            stickyRow={this.props.stickyRow}
             item={item}
             label={item.name}
             nowposition={this.props.nowposition}

@@ -41,13 +41,12 @@ class TimeLine extends Component {
       numVisibleRows: 40,
       numVisibleDays: 60,
       dayWidth: dayWidth,
-      stickyRow:null,
       interactiveMode: false,
       taskToCreate: null,
       links: [],
       mode: this.props.mode ? this.props.mode : VIEW_MODE_MONTH,
       size: { width: 1, height: 1 },
-      changingTask: null
+      changingTask: null,
     };
   }
 
@@ -95,7 +94,7 @@ class TimeLine extends Component {
       numVisibleDays: newNumVisibleDays,
       startRow: rowInfo.start,
       endRow: rowInfo.end,
-      size: size
+      size: size,
     });
   };
 
@@ -108,13 +107,11 @@ class TimeLine extends Component {
     //Check if we have scrolling rows
     let rowInfo = this.calculateStartEndRows(this.state.numVisibleRows, this.props.data, scrollTop);
     if (rowInfo.start !== this.state.start) {
-      this.setState(
-       {
-          scrollTop: scrollTop,
-          startRow: rowInfo.start,
-          endRow: rowInfo.end
-        }
-      );
+      this.setState({
+        scrollTop: scrollTop,
+        startRow: rowInfo.start,
+        endRow: rowInfo.end,
+      });
     }
   };
 
@@ -162,16 +159,14 @@ class TimeLine extends Component {
     //If we need updates then change the state and the scroll position
     //Got you
     this.setStartEnd();
-    this.setState(
-       {
-        currentday: currentIndx,
-        nowposition: new_nowposition,
-        headerData: headerData,
-        scrollLeft: new_left,
-        startRow: new_startRow,
-        endRow: new_endRow
-      }
-    );
+    this.setState({
+      currentday: currentIndx,
+      nowposition: new_nowposition,
+      headerData: headerData,
+      scrollLeft: new_left,
+      startRow: new_startRow,
+      endRow: new_endRow,
+    });
   };
 
   calculateVerticalScrollVariables = (size) => {
@@ -258,28 +253,27 @@ class TimeLine extends Component {
     console.log(`Start Link ${task}`);
     this.setState({
       interactiveMode: true,
-      taskToCreate: { task: task, position: position }
+      taskToCreate: { task: task, position: position },
     });
   };
 
   onFinishCreateLink = (task, position) => {
     console.log(`End Link ${task}`);
-    if (this.props.onCreateLink && task &&
-      this.state.taskToCreate &&this.state.taskToCreate.task.id!=task.id) {
+    if (this.props.onCreateLink && task && this.state.taskToCreate && this.state.taskToCreate.task.id != task.id) {
       this.props.onCreateLink({
         start: this.state.taskToCreate,
-        end: { task: task, position: position }
+        end: { task: task, position: position },
       });
     }
     this.setState({
       interactiveMode: false,
-      taskToCreate: null
+      taskToCreate: null,
     });
   };
 
   onTaskChanging = (changingTask) => {
     this.setState({
-      changingTask: changingTask
+      changingTask: changingTask,
     });
   };
 
@@ -303,11 +297,6 @@ class TimeLine extends Component {
       this.state.scrollLeft = scrollLeft;
     }
   }
-  setStickyRow = (id) => {
-    this.setState({
-      stickyRow: this.state.stickyRow == id ? null : id,
-    });
-  };
 
   checkNeeeData = () => {
     if (this.props.data != this.state.data) {
@@ -325,9 +314,9 @@ class TimeLine extends Component {
   render() {
     this.checkMode();
     this.checkNeeeData();
-    console.log('On render')
-    if(!this.state.size){
-      console.log(this.state)
+    console.log('On render');
+    if (!this.state.size) {
+      console.log(this.state);
     }
     return (
       <div className="timeLine">
@@ -368,8 +357,6 @@ class TimeLine extends Component {
             selectedItem={this.props.selectedItem}
             dayWidth={this.state.dayWidth}
             onScroll={this.scrollData}
-            stickyRow={this.state.stickyRow}
-            setStickyRow={this.setStickyRow}
             onMouseDown={this.doMouseDown}
             onMouseMove={this.doMouseMove}
             onMouseUp={this.doMouseUp}
@@ -385,7 +372,7 @@ class TimeLine extends Component {
             onFinishCreateLink={this.onFinishCreateLink}
             boundaries={{
               lower: this.state.scrollLeft,
-              upper: this.state.scrollLeft + this.state.size.width
+              upper: this.state.scrollLeft + this.state.size.width,
             }}
             onSize={this.onSize}
           />
@@ -416,13 +403,13 @@ class TimeLine extends Component {
 TimeLine.propTypes = {
   itemheight: PropTypes.number.isRequired,
   dayWidth: PropTypes.number.isRequired,
-  nonEditableName: PropTypes.bool
+  nonEditableName: PropTypes.bool,
 };
 
 TimeLine.defaultProps = {
   itemheight: 20,
   dayWidth: 24,
-  nonEditableName: false
+  nonEditableName: false,
 };
 
 export default TimeLine;

@@ -1,6 +1,6 @@
 {
   "name": "@psksyd/react-gantt-timeline",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -88,7 +88,8 @@
     "moment": "^2.24.0",
     "opencollective": "^1.0.3",
     "opencollective-postinstall": "^2.0.1",
-    "react-sizeme": "^2.5.2"
+    "react-sizeme": "^2.5.2",
+    "react-tooltip": "^4.2.15"
   },
   "collective": {
     "type": "opencollective",
