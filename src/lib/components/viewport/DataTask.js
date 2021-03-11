@@ -127,11 +127,11 @@ export default class DataTask extends Component {
     let configStyle = this.props.isSelected ? Config.values.dataViewPort.task.selectedStyle : Config.values.dataViewPort.task.style;
     let backgroundColor = this.props.color ? this.props.color : configStyle.backgroundColor;
 
-    const sideColor = "#1890ff";
-    const centerColor = "#52c41a";
+    const sideColor = '#1890ff';
+    const centerColor = '#52c41a';
     const backgroundGradient = `linear-gradient(to right, ${sideColor} 0%, ${sideColor} 
     ${this.props.activeStartPercent}%, ${centerColor} ${this.props.activeStartPercent}%, ${centerColor} 
-    ${this.props.activeEndPercent}%, ${sideColor} ${this.props.activeEndPercent}%, ${sideColor} 100%)`
+    ${this.props.activeEndPercent}%, ${sideColor} ${this.props.activeEndPercent}%, ${sideColor} 100%)`;
 
     if (this.state.dragging) {
       return {
@@ -143,7 +143,14 @@ export default class DataTask extends Component {
         top: 2,
       };
     } else {
-      return { ...configStyle, background: backgroundGradient, left: this.props.left, width: this.props.width, height: this.props.height - 5, top: 2 };
+      return {
+        ...configStyle,
+        background: backgroundGradient,
+        left: this.props.left,
+        width: this.props.width,
+        height: this.props.height - 5,
+        top: 2,
+      };
     }
   }
   displayTooltip = () => {
@@ -164,7 +171,7 @@ export default class DataTask extends Component {
           position: 'absolute',
           zIndex: 9999,
           bottom: '-100px',
-          left: '105%',
+          left: '95%',
         }}
       >
         <div>
@@ -188,7 +195,11 @@ export default class DataTask extends Component {
             <span>Personer :</span>
             <span style={{ display: 'flex', flexFlow: 'column' }}>
               {this.props.item._readers &&
-                Object.values(this.props.item._readers).map((r) => <span style={{ textAlign: 'end' }}>{r.name}</span>)}
+                Object.values(this.props.item._readers).map((r) => (
+                  <span key={r._id} style={{ textAlign: 'end' }}>
+                    {r.name}
+                  </span>
+                ))}
             </span>
           </div>
         </div>
