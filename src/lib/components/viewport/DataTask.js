@@ -3,6 +3,7 @@ import DateHelper from 'libs/helpers/DateHelper';
 import { MODE_NONE, MODE_MOVE, MOVE_RESIZE_LEFT, MOVE_RESIZE_RIGHT } from 'libs/Const';
 import { LINK_POS_LEFT, LINK_POS_RIGHT } from 'libs/Const';
 import Config from 'libs/helpers/config/Config';
+import ReactTooltip from 'react-tooltip';
 
 export default class DataTask extends Component {
   constructor(props) {
@@ -153,26 +154,21 @@ export default class DataTask extends Component {
       };
     }
   }
-  displayTooltip = () => {
+  getTooltip = () => {
     if (!document.getElementById(this.props.item._id)) {
       return null;
     }
 
     return (
-      <div
-        style={{
-          width: '300px',
-          border: '1px solid gray',
-          backgroundColor: '#FFFFFF',
-          color: '#676767',
-          textAlign: 'center',
-          borderRadius: '6px',
-          padding: '10px',
-          position: 'absolute',
-          zIndex: 9999,
-          bottom: '-100px',
-          left: '95%',
-        }}
+      <ReactTooltip
+        id={'tooltip' + this.props.item._id}
+        effect="solid"
+        delayHide={300}
+        delayShow={100}
+        delayUpdate={300}
+        place={'right'}
+        border={true}
+        type={'light'}
       >
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px 5px 10px' }}>
@@ -203,21 +199,17 @@ export default class DataTask extends Component {
             </span>
           </div>
         </div>
-      </div>
+      </ReactTooltip>
     );
   };
   render() {
     let style = this.calculateStyle();
-    if (this.props.item._id === this.props.stickyRow) {
-      style.border = '2px solid darkblue';
-    }
     return (
       <div
+        data-tip
+        data-for={'tooltip' + this.props.item._id}
         id={this.props.item._id}
-        onMouseEnter={() => this.setState({ showHover: true })}
-        onMouseLeave={() => this.setState({ showHover: false })}
         onMouseDown={(e) => {
-          this.props.setStickyRow(this.props.item._id);
           return this.doMouseDown(e, MODE_MOVE);
         }}
         onTouchStart={(e) => this.doTouchStart(e, MODE_MOVE)}
@@ -226,7 +218,7 @@ export default class DataTask extends Component {
         }}
         style={style}
       >
-        {(this.state.showHover || this.props.stickyRow == this.props.item._id) && this.displayTooltip()}
+        {this.getTooltip()}
         <div
           className="timeLine-main-data-task-side"
           style={{ top: 0, left: -4, height: style.height }}
